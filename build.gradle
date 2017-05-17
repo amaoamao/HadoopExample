@@ -1,0 +1,19 @@
+group 'io.github.amaoamao'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.apache.hadoop:hadoop-core:1.2.1'
+    compile 'org.apache.hadoop:hadoop-common:2.7.2'
+    compile 'org.apache.hadoop:hadoop-auth:2.7.2'
+
+}
