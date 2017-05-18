@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = ['src']
 
 repositories {
     mavenLocal()
@@ -15,5 +16,14 @@ dependencies {
     compile 'org.apache.hadoop:hadoop-core:1.2.1'
     compile 'org.apache.hadoop:hadoop-common:2.7.2'
     compile 'org.apache.hadoop:hadoop-auth:2.7.2'
+}
 
+
+task run(type: Exec) {
+    dependsOn build
+    commandLine System.getenv("HADOOP_HOME") + '/bin/hadoop', 'jar', 'build/libs/HadoopExample-1.0-SNAPSHOT.jar', 'Main', input, output
+}
+
+run.doFirst {
+    delete(output)
 }
