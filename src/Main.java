@@ -22,9 +22,7 @@ public class Main {
         job.setMapOutputValueClass(LongWritable.class);
         job.setPartitionerClass(CityPartitioner.class);
         job.setNumReduceTasks(2);
-        job.setCombinerClass(CityReducer.class);
         job.setReducerClass(CityReducer.class);
-
         job.setOutputKeyClass(CityBean.class);
         job.setOutputValueClass(NullWritable.class);
         FileInputFormat.addInputPath(job, new Path(args[0]));
