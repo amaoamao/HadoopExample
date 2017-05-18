@@ -16,13 +16,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "City Sort");
-        job.setNumReduceTasks(2);
         job.setJarByClass(Main.class);
         job.setMapperClass(CityMapper.class);
-
         job.setMapOutputKeyClass(CityBean.class);
         job.setMapOutputValueClass(LongWritable.class);
-
+        job.setPartitionerClass(CityPartitioner.class);
+        job.setNumReduceTasks(2);
         job.setCombinerClass(CityReducer.class);
         job.setReducerClass(CityReducer.class);
 

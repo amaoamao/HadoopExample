@@ -1,5 +1,4 @@
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
@@ -10,9 +9,9 @@ import java.io.IOException;
  * Created by mao on 17-5-17.
  */
 public class CityReducer extends Reducer<CityBean,
-        LongWritable, CityBean, NullWritable> {
+        LongWritable, CityBean, LongWritable> {
 
-    private MultipleOutputs<CityBean, NullWritable> multipleOutputs;
+    private MultipleOutputs<CityBean, LongWritable> multipleOutputs;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
@@ -23,7 +22,7 @@ public class CityReducer extends Reducer<CityBean,
     protected void reduce(CityBean key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
 
         for (LongWritable value : values) {
-            multipleOutputs.write(key, NullWritable.get(), value.get() % 2 == 0 ? "even" : "odd");
+            context.write(key, value);
         }
     }
 
